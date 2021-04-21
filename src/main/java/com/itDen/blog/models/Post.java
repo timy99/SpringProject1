@@ -1,26 +1,31 @@
 package com.itDen.blog.models;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity//model
+ @Component
 public class Post {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id//уникальность
+    @GeneratedValue(strategy = GenerationType.AUTO)//при добавлении новой записи будет генерировать новый ID
     private Long id;
     private String title ,anons,full_text;
     private int views;
+
+    public Post(int views) {
+        this.views = views;
+    }
+
     public Post(String title, String anons, String full_text) {
         this.title = title;
         this.anons = anons;
         this.full_text = full_text;
+
     }
-
-
-
-
     public Post() {
 
     }
@@ -58,7 +63,7 @@ public class Post {
     }
 
     public int getViews() {
-        return views;
+        return views++;
     }
 
     public void setViews(int views) {

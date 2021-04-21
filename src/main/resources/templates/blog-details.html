@@ -11,7 +11,7 @@
     <div th:each="el : ${post}" class="alert alert-info mt-2">
         <h3 th:text="${el.title}"> </h3>
         <p th:text="${el.full_text}"> </p>
-        <p><b>Просмотры:</b> <span th:text="${el.views}"/> </p>
+        <p><b>Просмотры:</b> <span th:text="${el.getViews()}"/> </p>
 
         <a th:href="'/blog/'+${el.id}+'/edit'" class="btn btn-warning">Редактировать</a><br><br>
         <form th:action="'/blog/'+ ${el.id}+'/remove'" method="post">

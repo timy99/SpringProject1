@@ -6,10 +6,16 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
+<!--обращаемся к тимлиф и к инсерт(который позволяет внедрить фрагмент )
+затем указываем где находится сам фрагмент через :: указываем какой именно фрагмент мы вносим  -->
 <header th:insert="blocks/header :: header"></header>
 <div class="container mt-5">
     <h1>Блог сайта</h1>
+<!--    создаем цикл
+создаем переменную el  и дальше указываем что конкретно перебираем(posts)
+дальше класс от бутстрапа чтобы все выклдело красиво -->
     <div th:each="el : ${posts}" class="alert alert-info mt-2">
+
         <h3 th:text="${el.title}"> </h3>
         <p th:text="${el.anons}"> </p>
         <a th:href="'/blog/'+${el.id}" class="btn btn-warning">Детальнее</a>

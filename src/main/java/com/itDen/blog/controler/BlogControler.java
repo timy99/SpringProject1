@@ -16,13 +16,22 @@ import java.util.Optional;
 
 @Controller
 public class BlogControler {
-
+//создание переменной которая ссылается на репозиторий
+    //модификатор//к какому репозиторию//название переменной
     @Autowired
     private PostRepository postRepository;
+    @Autowired
+    private  Post post1;
+
+    private int i=0;
 
     @GetMapping("/blog")
+
     public String blogMain(Model model) {
+        //передаем все записи из таблицы Post
         Iterable<Post> posts = postRepository.findAll();//вытянет все записи из табицы пост
+       //передаем все записи в шаблон
+        post1.setViews(i++);
         model.addAttribute("posts", posts);
         return "blog-main";
 
@@ -32,9 +41,10 @@ public class BlogControler {
     public String blogAdd(Model model) {
         return "blog-add";
     }
-
+//получаем из формы записи
     @PostMapping("/blog/add")
     public String blogPostAdd(@RequestParam String title, @RequestParam String anons, @RequestParam String full_text, Model model) {
+
         Post post = new Post(title, anons, full_text);
         postRepository.save(post);
         return "redirect:/blog";
@@ -50,6 +60,12 @@ public class BlogControler {
         post.ifPresent(res::add);
         model.addAttribute("post", res);
         return "blog-details";
+    }
+    @PostMapping("/blog/{id}")
+    public String blogPostDetails(@PathVariable(value = "views") int views, Model model){
+        Post post = new Post(views+1);
+        postRepository.save(post);
+        return "/blog/{id}";
     }
 
     @GetMapping("/blog/{id}/edit")
